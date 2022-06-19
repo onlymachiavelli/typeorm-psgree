@@ -1,9 +1,22 @@
 import express from "express"
 
-import { DataSource } from "typeorm"
+import { DataSource, Entity, PrimaryColumn, Column } from "typeorm"
 
 const app = express()
 
+//classes
+
+@Entity()
+export class User {
+  @PrimaryColumn()
+  id: String
+
+  @Column()
+  fname: String
+
+  @Column()
+  age: number
+}
 const appDataSrouce = new DataSource({
   type: "postgres",
   host: "localhost",
@@ -17,6 +30,8 @@ appDataSrouce
   .initialize()
   .then(() => {
     console.log("DataSource initialized and listening on port 42069")
+
+    //doing my own shits
   })
   .catch((e) => {
     console.log(e)
