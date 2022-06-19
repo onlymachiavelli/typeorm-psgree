@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryColumn } from "typeorm"
 @Entity()
-export default class User {
+export default class test {
   @PrimaryColumn()
   id: String
 
