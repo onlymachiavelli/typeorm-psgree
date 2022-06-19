@@ -2,21 +2,9 @@ import express from "express"
 
 import { DataSource, Entity, PrimaryColumn, Column } from "typeorm"
 
+import  User  from "./entity/user"
 const app = express()
 
-//classes
-
-@Entity()
-export class User {
-  @PrimaryColumn()
-  id: String
-
-  @Column()
-  fname: String
-
-  @Column()
-  age: number
-}
 const appDataSrouce = new DataSource({
   type: "postgres",
   host: "localhost",
@@ -24,15 +12,32 @@ const appDataSrouce = new DataSource({
   username: "postgres",
   password: "root",
   database: "helloworld",
+  entities: [__dirname + "/entity/*.js"],
 })
 
 appDataSrouce
   .initialize()
-  .then(() => {
+  .then(async () => {
     console.log("DataSource initialized and listening on port 42069")
 
     //doing my own shits
+    const user = new User()
+    user.id = "01"
+    user.fname = "Alaa Barka"
+    user.age = 30
+    await appDataSrouce.manager
+      .save(user)
+      .then(() => {
+        console.log("user saved")
+      })
+      .catch((err: any) => {
+        console.log(err)
+      })
+      .finally(() => {
+        //
+      })
   })
+
   .catch((e) => {
     console.log(e)
   })
