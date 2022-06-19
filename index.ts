@@ -2,7 +2,7 @@ import express from "express"
 
 import { DataSource, Entity, PrimaryColumn, Column } from "typeorm"
 
-import  User  from "./entity/user"
+import User from "./entity/user"
 const app = express()
 
 const appDataSrouce = new DataSource({
@@ -12,7 +12,7 @@ const appDataSrouce = new DataSource({
   username: "postgres",
   password: "root",
   database: "helloworld",
-  entities: [__dirname + "/entity/*.js"],
+  entities: [User],
 })
 
 appDataSrouce
